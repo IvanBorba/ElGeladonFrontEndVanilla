@@ -71,8 +71,7 @@ html {
   }
 }
 
-.PaletaCardItem,
-.PaletaListaItem {
+.CartaoPaleta {
   font-family: "Exo";
   background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
@@ -82,45 +81,112 @@ html {
   justify-content: space-around;
 }
 
-.PaletaCardItem {
+.CartaoPaleta {
   margin: 20px 0;
   height: 150px;
-  width: auto;
 }
 
 @media (max-width: 400px) {
-  .PaletaCardItem,
-  .PaletaListaItem {
+  .CartaoPaleta,
+  .CartaoPaleta__infos {
     width: 210px;
     height: 180px;
   }
 }
 
-.PaletaCardItem > div,
-.PaletaListaItem > div {
+.CartaoPaleta > div,
+.CartaoPaleta__infos > div {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
-.PaletaCardItem__sabor,
-.PaletaListaItem__sabor {
+.CartaoPaleta__infos > h4 {
   font-size: 1.5em;
   font-weight: 700;
   line-height: 100%;
 }
 
-.PaletaCardItem__descricao,
-.PaletaListaItem__descricao {
+.CartaoPaleta__infos > p {
   font-size: 0.85em;
 }
 
-.PaletaCardItem__preco,
-.PaletaListaItem__preco {
+.CartaoPaleta__infos > span {
   color: darkviolet;
 }
 
-.PaletaListaItem__foto {
+.CartaoPaleta > img {
   height: 150px;
   margin-right: -60px;
+}
+
+.Header {
+  width: calc(60vw - 60px);
+  height: 12vh;
+  align-items: center;
+  padding: 0 20vw;
+}
+
+.Header > .Header__container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Header > .Header__container > div {
+  display: flex;
+  align-items: center;
+  font-size: x-large;
+  background-color: #ffffff4d;
+  width: 16vw;
+  height: 7vh;
+  border-radius: 10px;
+  position: relative;
+}
+
+.Header > .Header__container > div > img {
+  position: absolute;
+  left: -25px;
+  top: -10px;
+}
+
+.Header > .Header__container > div > h2 {
+  position: absolute;
+  left: 50px;
+}
+
+.MensagemDeErro {
+  color: red;
+  margin: 2rem;
+  font-size: larger;
+}
+
+.PesquisarPaleta {
+  width: calc(20vw - 60px);
+  padding: 0 40vw;
+  height: 50vh;
+}
+
+.PesquisarPaleta > .PesquisarPaleta__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 30vh;
+}
+
+.PesquisarPaleta > .PesquisarPaleta__container > input {
+  border: none;
+  margin: 1rem 0;
+  padding: 8px 6px;
+  border-radius: 3px;
+}
+
+.PesquisarPaleta > .PesquisarPaleta__container > button {
+  background-color: transparent;
+  border-radius: 3px;
+  border: 2px solid #9400d3;
+  color: #9400d3;
+  font-size: larger;
+  font-weight: 700;
+  height: 33px;
 }

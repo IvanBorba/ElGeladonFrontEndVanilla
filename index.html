@@ -9,6 +9,29 @@
   </head>
   <body>
     <div class="Home">
+      <header class="Header">
+        <div class="Header__container">
+          <div>
+            <img src="./assets/icons/logo.svg" width="70px" />
+            <h2>El Geladon</h2>
+          </div>
+          <img src="./assets/icons/sacola.svg" width="40px" />
+        </div>
+      </header>
+
+      <h2>Pesquisar Paleta</h2>
+      <div class="PesquisarPaleta">
+        <div class="PesquisarPaleta__container">
+          <input
+            type="number"
+            id="inputIdPaleta"
+            placeholder="Digite o ID da Paleta e clique em escolher"
+          />
+          <button onclick="imprimirUmaPaletaPorId()">Escolher</button>
+          <div class="PaletaPesquisada" id="paletaPesquisada"></div>
+        </div>
+      </div>
+
       <h2>Paletas Disponíveis:</h2>
       <div class="Home__container">
         <div class="PaletaLista" id="paletaList"></div>

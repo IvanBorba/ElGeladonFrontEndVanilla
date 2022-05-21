@@ -40,6 +40,11 @@ const buscarTodasAsPaletas = async () => {
 
 const buscarPaletaPorId = async (id) => {
   const resposta = await fetch(`${baseUrl}/paletas/paleta/${id}`);
+
+  if (resposta.status === 404) {
+    return false;
+  }
+
   const paleta = await resposta.json();
 
   return paleta;
@@ -114,10 +119,12 @@ const imprimirTodasAsPaletas = async () => {
       <div class="CartaoPaleta">
         <div class="CartaoPaleta__infos">
           <h4>${elemento.sabor}</h4>
-          <span>${elemento.preco}</span>
+          <span>R$${elemento.preco.toFixed(2)}</span>
           <p>${elemento.descricao}</p>
         </div>
-        <img src="./${elemento.foto}" alt="Paleta sabor ${elemento.sabor}"/>
+        <img src="./${elemento.foto}" alt="Paleta sabor ${
+        elemento.sabor
+      }" class="CartaoPaleta__foto"/>
       </div>
       `
     );
@@ -125,3 +132,34 @@ const imprimirTodasAsPaletas = async () => {
 };
 
 imprimirTodasAsPaletas();
+
+const imprimirUmaPaletaPorId = async () => {
+  document.getElementById("paletaPesquisada").innerHTML = "";
+
+  const input = document.getElementById("inputIdPaleta");
+  const id = input.value;
+
+  const paleta = await buscarPaletaPorId(id);
+
+  if (paleta === false) {
+    const mensagemDeErro = document.createElement("p");
+    mensagemDeErro.id = "mensagemDeErro";
+    mensagemDeErro.classList.add("MensagemDeErro");
+    mensagemDeErro.innerText = "Nenhuma paleta encontrada";
+
+    document.getElementById("paletaPesquisada").appendChild(mensagemDeErro);
+  } else {
+    document.getElementById("paletaPesquisada").innerHTML = `
+      <div class="CartaoPaleta">
+        <div class="CartaoPaleta__infos">
+          <h4>${paleta.sabor}</h4>
+          <span>R$${paleta.preco.toFixed(2)}</span>
+          <p>${paleta.descricao}</p>
+        </div>
+        <img src="./${paleta.foto}" alt="Paleta sabor ${
+      paleta.sabor
+    }" class="CartaoPaleta__foto"/>
+      </div>
+    `;
+  }
+};
