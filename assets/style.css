@@ -33,9 +33,16 @@ html {
   display: flex;
   justify-content: space-around;
   color: rgb(0, 0, 0);
+  margin-top: 2rem;
 }
 
-.Home > div {
+.Home > .PesquisarPaleta {
+  display: flex;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+}
+
+.Home > .Home__container {
   display: flex;
   justify-content: center;
   color: rgb(0, 0, 0);
@@ -164,14 +171,12 @@ html {
 .PesquisarPaleta {
   width: calc(20vw - 60px);
   padding: 0 40vw;
-  height: 50vh;
 }
 
 .PesquisarPaleta > .PesquisarPaleta__container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 30vh;
 }
 
 .PesquisarPaleta > .PesquisarPaleta__container > input {
@@ -181,7 +186,7 @@ html {
   border-radius: 3px;
 }
 
-.PesquisarPaleta > .PesquisarPaleta__container > button {
+.botao-padrao {
   background-color: transparent;
   border-radius: 3px;
   border: 2px solid #9400d3;
@@ -189,4 +194,94 @@ html {
   font-size: larger;
   font-weight: 700;
   height: 33px;
+  cursor: pointer;
+}
+
+.botao-cadastro {
+  padding: 0.1rem 5rem;
+  font-size: medium;
+}
+
+.botao-padrao:hover {
+  color: #50c5ee;
+  background-color: #9400d3;
+}
+
+.NovaPaleta__container {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.fundo-modal {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #0000004d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fundo-modal > .modal {
+  width: 30vw;
+  height: 36vh;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.fundo-modal > .modal > .cabecalho-modal {
+  width: calc(100% - 40px);
+  height: 7vh;
+  background-color: #50c5ee;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  user-select: none;
+}
+
+.fundo-modal > .modal > .cabecalho-modal > span {
+  cursor: pointer;
+}
+
+.fundo-modal > .modal > .corpo-modal {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 14px);
+  padding: 0 7px;
+  align-items: center;
+}
+
+.fundo-modal > .modal > .corpo-modal > input {
+  width: calc(100% - 14px);
+  border: 1px solid #0000002d;
+  border-radius: 5px;
+  padding: 7px;
+  margin-top: 7px;
+}
+
+.fundo-modal > .modal > .corpo-modal > .input-descricao {
+  height: 8vh;
+}
+
+.fundo-modal > .modal > .corpo-modal > button {
+  width: 9vw;
+  height: 4vh;
+  margin-top: 7px;
+  border: 1px solid #50c5ee;
+  color: #50c5ee;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.fundo-modal > .modal > .corpo-modal > button:hover {
+  color: white;
+  background-color: #50c5ee;
 }

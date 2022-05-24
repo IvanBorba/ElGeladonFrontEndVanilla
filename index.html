@@ -19,15 +19,25 @@
         </div>
       </header>
 
+      <div class="NovaPaleta__container">
+        <button
+          onclick="mostrarModalCriacao()"
+          class="botao-padrao botao-cadastro"
+        >
+          Cadastrar Paleta
+        </button>
+      </div>
+
       <h2>Pesquisar Paleta</h2>
       <div class="PesquisarPaleta">
         <div class="PesquisarPaleta__container">
           <input
-            type="number"
-            id="inputIdPaleta"
-            placeholder="Digite o ID da Paleta e clique em escolher"
+            id="inputBuscaSaborPaleta"
+            placeholder="Digite o sabor da Paleta e clique em escolher"
           />
-          <button onclick="imprimirUmaPaletaPorId()">Escolher</button>
+          <button class="botao-padrao" onclick="imprimirUmaPaletaPorId()">
+            Escolher
+          </button>
           <div class="PaletaPesquisada" id="paletaPesquisada"></div>
         </div>
       </div>
@@ -35,6 +45,41 @@
       <h2>Paletas Disponíveis:</h2>
       <div class="Home__container">
         <div class="PaletaLista" id="paletaList"></div>
+      </div>
+
+      <div class="fundo-modal" id="fundoModal">
+        <div class="modal">
+          <div class="cabecalho-modal">
+            <h2>Cadastrar uma paleta</h2>
+            <span onclick="esconderModalCriacao()">X</span>
+          </div>
+          <div class="corpo-modal">
+            <input
+              class="input-sabor"
+              placeholder="Sabor da paleta"
+              id="inputSabor"
+            />
+            <input
+              type="number"
+              class="input-preco"
+              id="inputPreco"
+              placeholder="Preço da paleta"
+            />
+            <input
+              class="input-descricao"
+              placeholder="Descrição da paleta"
+              id="inputDescricao"
+            />
+            <input
+              class="input-foto"
+              placeholder="Link da foto da paleta"
+              id="inputFoto"
+            />
+            <button class="botao-modal" onclick="cadastrarNovaPaleta()">
+              Cadastrar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="./assets/script.js"></script>
