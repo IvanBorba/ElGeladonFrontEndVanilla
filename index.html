@@ -47,7 +47,7 @@
         <div class="PaletaLista" id="paletaList"></div>
       </div>
 
-      <div class="fundo-modal" id="fundoModal">
+      <div class="fundo-modal" id="fundoModalCriacao">
         <div class="modal">
           <div class="cabecalho-modal">
             <h2>Cadastrar uma paleta</h2>
@@ -65,11 +65,12 @@
               id="inputPreco"
               placeholder="Preço da paleta"
             />
-            <input
+            <textarea
               class="input-descricao"
               placeholder="Descrição da paleta"
               id="inputDescricao"
-            />
+              rows="4"
+            ></textarea>
             <input
               class="input-foto"
               placeholder="Link da foto da paleta"
@@ -77,6 +78,68 @@
             />
             <button class="botao-modal" onclick="cadastrarNovaPaleta()">
               Cadastrar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fundo-modal" id="fundoModalExclusao">
+        <div class="modal">
+          <div class="cabecalho-modal">
+            <h2>Confirmação</h2>
+            <span onclick="esconderModalExclusao()">X</span>
+          </div>
+          <div class="corpo-modal corpo-modal-exclusao">
+            <h2>Deseja realmente apagar essa paleta</h2>
+            <div>
+              <button
+                class="botao-cancelar-excluir-paleta"
+                onclick="esconderModalExclusao()"
+              >
+                Não
+              </button>
+              <button
+                class="botao-confirmar-excluir-paleta"
+                id="botaoConfirmarExclusao"
+              >
+                Sim
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fundo-modal" id="fundoModalEdicao">
+        <div class="modal">
+          <div class="cabecalho-modal">
+            <h2>Atualizar uma paleta</h2>
+            <span onclick="esconderModalEdicao()">X</span>
+          </div>
+          <div class="corpo-modal">
+            <input
+              class="input-sabor"
+              placeholder="Sabor da paleta"
+              id="inputSaborEdicao"
+            />
+            <input
+              type="number"
+              class="input-preco"
+              id="inputPrecoEdicao"
+              placeholder="Preço da paleta"
+            />
+            <textarea
+              class="input-descricao"
+              placeholder="Descrição da paleta"
+              id="inputDescricaoEdicao"
+              rows="4"
+            ></textarea>
+            <input
+              class="input-foto"
+              placeholder="Link da foto da paleta"
+              id="inputFotoEdicao"
+            />
+            <button class="botao-modal" id="botaoConfirmarEdicao">
+              Atualizar
             </button>
           </div>
         </div>

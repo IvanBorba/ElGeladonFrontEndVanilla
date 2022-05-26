@@ -80,9 +80,9 @@ const excluirPaleta = async (id) => {
   });
 
   if (resposta.status === 204) {
-    return "Paleta excluída com sucesso";
+    return true;
   } else {
-    return "Paleta não encontrada";
+    return false;
   }
 };
 
@@ -90,6 +90,8 @@ const excluirPaleta = async (id) => {
 
 const imprimirTodasAsPaletas = async () => {
   const paletas = await buscarTodasAsPaletas();
+
+  document.getElementById("paletaList").innerHTML = ``;
 
   paletas.forEach((elemento) => {
     document.getElementById("paletaList").insertAdjacentHTML(
@@ -100,6 +102,14 @@ const imprimirTodasAsPaletas = async () => {
           <h4>${elemento.sabor}</h4>
           <span>R$${elemento.preco.toFixed(2)}</span>
           <p>${elemento.descricao}</p>
+          <div>
+            <button onclick="mostrarModalExclusao('${
+              elemento._id
+            }')" class="botao-excluir-paleta">APAGAR</button>
+            <button onclick="mostrarModalEdicao('${
+              elemento._id
+            }')" class="botao-editar-paleta">EDITAR</button>
+          </div>
         </div>
         <img src="./${elemento.foto}" alt="Paleta sabor ${
         elemento.sabor
@@ -147,6 +157,14 @@ const imprimirUmaPaletaPorId = async () => {
           <h4>${paleta.sabor}</h4>
           <span>R$${paleta.preco.toFixed(2)}</span>
           <p>${paleta.descricao}</p>
+          <div>
+            <button onclick="mostrarModalExclusao('${
+              paleta._id
+            }')" class="botao-excluir-paleta">APAGAR</button>
+            <button onclick="mostrarModalEdicao('${
+              paleta._id
+            }')" class="botao-editar-paleta">EDITAR</button>
+          </div>
         </div>
         <img src="./${paleta.foto}" alt="Paleta sabor ${
       paleta.sabor
@@ -157,7 +175,50 @@ const imprimirUmaPaletaPorId = async () => {
 };
 
 const mostrarModalCriacao = () => {
-  document.getElementById("fundoModal").style.display = "flex";
+  document.getElementById("fundoModalCriacao").style.display = "flex";
+};
+
+const mostrarModalExclusao = (id) => {
+  document.getElementById("fundoModalExclusao").style.display = "flex";
+
+  const botaoConfirmar = document.getElementById("botaoConfirmarExclusao");
+
+  botaoConfirmar.addEventListener("click", async () => {
+    const exclusao = await excluirPaleta(id);
+
+    if (exclusao) {
+      alert("Paleta excluida com sucesso");
+    } else {
+      alert("Paleta não encontrada");
+    }
+    esconderModalExclusao();
+    imprimirTodasAsPaletas();
+  });
+};
+
+const mostrarModalEdicao = (id) => {
+  document.getElementById("fundoModalEdicao").style.display = "flex";
+
+  const paleta = listaDePaletas.find((elemento) => elemento._id === id);
+
+  document.getElementById("inputSaborEdicao").value = paleta.sabor;
+  document.getElementById("inputPrecoEdicao").value = paleta.preco;
+  document.getElementById("inputDescricaoEdicao").value = paleta.descricao;
+  document.getElementById("inputFotoEdicao").value = paleta.foto;
+
+  const botaoAtualizar = document.getElementById("botaoConfirmarEdicao");
+
+  botaoAtualizar.addEventListener("click", async () => {
+    const sabor = document.getElementById("inputSaborEdicao").value;
+    const preco = document.getElementById("inputPrecoEdicao").value;
+    const descricao = document.getElementById("inputDescricaoEdicao").value;
+    const foto = document.getElementById("inputFotoEdicao").value;
+
+    await atualizarPaleta(id, sabor, descricao, foto, preco);
+
+    esconderModalEdicao();
+    imprimirTodasAsPaletas();
+  });
 };
 
 const esconderModalCriacao = () => {
@@ -166,7 +227,15 @@ const esconderModalCriacao = () => {
   document.getElementById("inputDescricao").value = "";
   document.getElementById("inputFoto").value = "";
 
-  document.getElementById("fundoModal").style.display = "none";
+  document.getElementById("fundoModalCriacao").style.display = "none";
+};
+
+const esconderModalExclusao = () => {
+  document.getElementById("fundoModalExclusao").style.display = "none";
+};
+
+const esconderModalEdicao = () => {
+  document.getElementById("fundoModalEdicao").style.display = "none";
 };
 
 const cadastrarNovaPaleta = async () => {
@@ -185,6 +254,14 @@ const cadastrarNovaPaleta = async () => {
         <h4>${paleta.sabor}</h4>
         <span>R$${paleta.preco.toFixed(2)}</span>
         <p>${paleta.descricao}</p>
+        <div>
+          <button onclick="mostrarModalExclusao('${
+            paleta._id
+          }')" class="botao-excluir-paleta">APAGAR</button>
+          <button onclick="mostrarModalEdicao('${
+            paleta._id
+          }')" class="botao-editar-paleta">EDITAR</button>
+        </div>
       </div>
       <img src="./${paleta.foto}" alt="Paleta sabor ${
       paleta.sabor

@@ -101,8 +101,7 @@ html {
   }
 }
 
-.CartaoPaleta > div,
-.CartaoPaleta__infos > div {
+.CartaoPaleta__infos {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -120,6 +119,36 @@ html {
 
 .CartaoPaleta__infos > span {
   color: darkviolet;
+}
+
+.CartaoPaleta__infos > div {
+}
+
+.CartaoPaleta__infos > div > button {
+  background-color: transparent;
+  padding: 0.6rem 2.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.botao-excluir-paleta {
+  border: 1px solid red;
+  color: red;
+}
+
+.botao-excluir-paleta:hover {
+  background-color: red;
+  color: #ffffff;
+}
+
+.botao-editar-paleta {
+  border: 1px solid blue;
+  color: blue;
+}
+
+.botao-editar-paleta:hover {
+  background-color: blue;
+  color: #ffffff;
 }
 
 .CartaoPaleta > img {
@@ -223,7 +252,6 @@ html {
   top: 0;
   left: 0;
   background-color: #0000004d;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -259,16 +287,13 @@ html {
   align-items: center;
 }
 
-.fundo-modal > .modal > .corpo-modal > input {
+.fundo-modal > .modal > .corpo-modal > input,
+textarea {
   width: calc(100% - 14px);
   border: 1px solid #0000002d;
   border-radius: 5px;
   padding: 7px;
   margin-top: 7px;
-}
-
-.fundo-modal > .modal > .corpo-modal > .input-descricao {
-  height: 8vh;
 }
 
 .fundo-modal > .modal > .corpo-modal > button {
@@ -279,9 +304,53 @@ html {
   color: #50c5ee;
   background-color: transparent;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .fundo-modal > .modal > .corpo-modal > button:hover {
   color: white;
   background-color: #50c5ee;
+}
+
+.corpo-modal-exclusao {
+  margin-top: 2rem;
+}
+
+.corpo-modal-exclusao > h2 {
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.corpo-modal-exclusao > div {
+  width: calc(100% - 14px);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.corpo-modal-exclusao > div > button {
+  background-color: transparent;
+  padding: 0.6rem 5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.botao-cancelar-excluir-paleta {
+  border: 1px solid red;
+  color: red;
+}
+
+.botao-cancelar-excluir-paleta:hover {
+  background-color: red;
+  color: white;
+}
+
+.botao-confirmar-excluir-paleta {
+  border: 1px solid #00b309;
+  color: #00b309;
+}
+
+.botao-confirmar-excluir-paleta:hover {
+  background-color: #00b309;
+  color: white;
 }
