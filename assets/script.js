@@ -1,95 +1,96 @@
+// Classes
+
+class Requisicoes {
+  async buscarTodasAsPaletas() {
+    const resposta = await fetch(`${baseUrl}/paletas/listar-todas`);
+
+    const paletas = await resposta.json();
+
+    listaDePaletas = paletas;
+
+    return paletas;
+  }
+
+  async buscarPaletaPorId(id) {
+    const resposta = await fetch(`${baseUrl}/paletas/paleta/${id}`);
+
+    if (resposta.status === 404) {
+      return false;
+    }
+
+    const paleta = await resposta.json();
+
+    return paleta;
+  }
+
+  async criarPaleta(sabor, descricao, foto, preco) {
+    const paleta = {
+      sabor,
+      descricao,
+      foto,
+      preco,
+    };
+
+    const resposta = await fetch(`${baseUrl}/paletas/criar-paleta`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(paleta),
+    });
+
+    const novaPaleta = await resposta.json();
+
+    return novaPaleta;
+  }
+
+  async atualizarPaleta(id, sabor, descricao, foto, preco) {
+    const paleta = {
+      sabor,
+      descricao,
+      foto,
+      preco,
+    };
+
+    const resposta = await fetch(`${baseUrl}/paletas/atualizar-paleta/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(paleta),
+    });
+
+    const paletaAtualizada = await resposta.json();
+
+    return paletaAtualizada;
+  }
+
+  async excluirPaleta(id) {
+    const resposta = await fetch(`${baseUrl}/paletas/excluir-paleta/${id}`, {
+      method: "DELETE",
+      mode: "cors",
+    });
+
+    if (resposta.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 // Variaveis auxiliares
 
+const requisicoes = new Requisicoes();
 const baseUrl = "http://localhost:3000";
 let listaDePaletas = [];
-
-// Requisições
-
-const buscarTodasAsPaletas = async () => {
-  const resposta = await fetch(`${baseUrl}/paletas/listar-todas`);
-
-  const paletas = await resposta.json();
-
-  listaDePaletas = paletas;
-
-  return paletas;
-};
-
-const buscarPaletaPorId = async (id) => {
-  const resposta = await fetch(`${baseUrl}/paletas/paleta/${id}`);
-
-  console.log(resposta);
-
-  if (resposta.status === 404) {
-    return false;
-  }
-
-  const paleta = await resposta.json();
-
-  return paleta;
-};
-
-const criarPaleta = async (sabor, descricao, foto, preco) => {
-  const paleta = {
-    sabor,
-    descricao,
-    foto,
-    preco,
-  };
-
-  const resposta = await fetch(`${baseUrl}/paletas/criar-paleta`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    body: JSON.stringify(paleta),
-  });
-
-  const novaPaleta = await resposta.json();
-
-  return novaPaleta;
-};
-
-const atualizarPaleta = async (id, sabor, descricao, foto, preco) => {
-  const paleta = {
-    sabor,
-    descricao,
-    foto,
-    preco,
-  };
-
-  const resposta = await fetch(`${baseUrl}/paletas/atualizar-paleta/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    body: JSON.stringify(paleta),
-  });
-
-  const paletaAtualizada = await resposta.json();
-
-  return paletaAtualizada;
-};
-
-const excluirPaleta = async (id) => {
-  const resposta = await fetch(`${baseUrl}/paletas/excluir-paleta/${id}`, {
-    method: "DELETE",
-    mode: "cors",
-  });
-
-  if (resposta.status === 204) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 // Manipulação do documento (HTML)
 
 const imprimirTodasAsPaletas = async () => {
-  const paletas = await buscarTodasAsPaletas();
+  const paletas = await requisicoes.buscarTodasAsPaletas();
 
   document.getElementById("paletaList").innerHTML = ``;
 
@@ -141,7 +142,7 @@ const imprimirUmaPaletaPorId = async () => {
 
   const id = paletaSelecionada._id;
 
-  const paleta = await buscarPaletaPorId(id);
+  const paleta = await requisicoes.buscarPaletaPorId(id);
 
   if (paleta === false) {
     const mensagemDeErro = document.createElement("p");
@@ -184,12 +185,12 @@ const mostrarModalExclusao = (id) => {
   const botaoConfirmar = document.getElementById("botaoConfirmarExclusao");
 
   botaoConfirmar.addEventListener("click", async () => {
-    const exclusao = await excluirPaleta(id);
+    const exclusao = await requisicoes.excluirPaleta(id);
 
     if (exclusao) {
-      alert("Paleta excluida com sucesso");
+      mostrarNotificacao("sucesso", "Paleta excluida com sucesso");
     } else {
-      alert("Paleta não encontrada");
+      mostrarNotificacao("erro", "Paleta não encontrada");
     }
     esconderModalExclusao();
     imprimirTodasAsPaletas();
@@ -214,11 +215,32 @@ const mostrarModalEdicao = (id) => {
     const descricao = document.getElementById("inputDescricaoEdicao").value;
     const foto = document.getElementById("inputFotoEdicao").value;
 
-    await atualizarPaleta(id, sabor, descricao, foto, preco);
+    await requisicoes.atualizarPaleta(id, sabor, descricao, foto, preco);
 
     esconderModalEdicao();
     imprimirTodasAsPaletas();
   });
+};
+
+const mostrarNotificacao = (tipo, frase) => {
+  const notificacaoSpan = document.getElementById("notificacaoSpan");
+  const notificacaoP = document.getElementById("notificacaoP");
+
+  if (tipo === "sucesso") {
+    notificacaoSpan.innerText = "V";
+    notificacaoSpan.classList.add("notificacao-span-sucesso");
+  } else if (tipo === "erro") {
+    notificacaoSpan.innerText = "X";
+    notificacaoSpan.classList.add("notificacao-span-erro");
+  }
+
+  notificacaoP.innerText = frase;
+
+  document.getElementById("notificacao").style.display = "flex";
+
+  setTimeout(() => {
+    esconderNotificacao();
+  }, 5000);
 };
 
 const esconderModalCriacao = () => {
@@ -238,13 +260,17 @@ const esconderModalEdicao = () => {
   document.getElementById("fundoModalEdicao").style.display = "none";
 };
 
+const esconderNotificacao = () => {
+  document.getElementById("notificacao").style.display = "none";
+};
+
 const cadastrarNovaPaleta = async () => {
   const sabor = document.getElementById("inputSabor").value;
   const preco = document.getElementById("inputPreco").value;
   const descricao = document.getElementById("inputDescricao").value;
   const foto = document.getElementById("inputFoto").value;
 
-  const paleta = await criarPaleta(sabor, descricao, foto, preco);
+  const paleta = await requisicoes.criarPaleta(sabor, descricao, foto, preco);
 
   document.getElementById("paletaList").insertAdjacentHTML(
     "beforeend",
@@ -269,6 +295,7 @@ const cadastrarNovaPaleta = async () => {
     </div>
   `
   );
+  mostrarNotificacao("sucesso", "Paleta criada com sucesso");
 
   esconderModalCriacao();
 };

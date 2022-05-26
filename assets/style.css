@@ -86,11 +86,9 @@ html {
   width: 315px;
   display: flex;
   justify-content: space-around;
-}
-
-.CartaoPaleta {
   margin: 20px 0;
   height: 150px;
+  animation: aparecer 2s normal;
 }
 
 @media (max-width: 400px) {
@@ -119,9 +117,6 @@ html {
 
 .CartaoPaleta__infos > span {
   color: darkviolet;
-}
-
-.CartaoPaleta__infos > div {
 }
 
 .CartaoPaleta__infos > div > button {
@@ -353,4 +348,61 @@ textarea {
 .botao-confirmar-excluir-paleta:hover {
   background-color: #00b309;
   color: white;
+}
+
+@keyframes aparecer {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.notificacao {
+  display: none;
+  min-width: 10vw;
+  max-width: 22vw;
+  height: 4vh;
+  border: 1px solid #0000003d;
+  justify-content: space-evenly;
+  background-color: white;
+  border-radius: 10px;
+  align-items: center;
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  padding: 0 1rem;
+  animation: aparecer 1s normal;
+  animation: subir 6s normal;
+}
+
+.notificacao > span {
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.notificacao-span-erro {
+  color: red;
+}
+
+.notificacao-span-sucesso {
+  color: green;
+}
+
+@keyframes subir {
+  0% {
+    bottom: -300px;
+  }
+  20% {
+    bottom: 15px;
+  }
+  60% {
+    bottom: 15px;
+  }
+  100% {
+    bottom: -300px;
+  }
 }
